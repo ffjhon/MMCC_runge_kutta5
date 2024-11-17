@@ -5,23 +5,22 @@ from ili9341 import ILI9341
 import tft_config  # Asegúrate de tener la configuración de la pantalla TFT
 
 # Condiciones iniciales
-h = 0.1
-t = 0
+h = 0.1; t = 0; 
 Q = np.array([0, 0])  # Condiciones iniciales
 N = 21  # Número de iteraciones
 
 # Inicializar arrays para almacenar resultados
 v_real = np.zeros(N)
-euler = np.zeros(N)
+euler  = np.zeros(N)
 euler_error = np.zeros(N)
 rk5 = np.zeros(N)
 rk5_error = np.zeros(N)
 
 # Configurar la pantalla
 spi = machine.SPI(1, baudrate=40000000, polarity=0, phase=0)
-cs = machine.Pin(15, machine.Pin.OUT)  # Pin de Chip Select
-dc = machine.Pin(2, machine.Pin.OUT)  # Pin de Data/Command
-rst = machine.Pin(4, machine.Pin.OUT)  # Pin de Reset
+cs  = machine.Pin(15, machine.Pin.OUT)  # Pin de Chip Select
+dc  = machine.Pin(2, machine.Pin.OUT)   # Pin de Data/Command
+rst = machine.Pin(4, machine.Pin.OUT)   # Pin de Reset
 lcd = ILI9341(spi, cs, dc, rst)
 
 # Función de la derivada
@@ -29,10 +28,10 @@ def F(t, Q):
     return np.array([Q[1], 550 * np.cos(11 * t) - 5 * Q[1] - 6 * Q[0]])
 
 for i in range(N):
-    j = i - 1
+    j = i-1
     
     # Método de Euler
-    Q_euler = Q + h * F(t, Q)
+    Q_euler = Q + h*F(t, Q)
     euler[i] = Q_euler[0]  # Guardamos el resultado del método de Euler
 
     # Método de Runge-Kutta de 5to orden (RK5)
@@ -47,12 +46,12 @@ for i in range(N):
     rk5[i] = Q_RK5_nueva[0]  # Guardamos el valor de RK5
 
     # Solución analítica (función exacta)
-    analitica = (-253 / 65) * np.cos(11 * t) + (121 / 65) * np.sin(11 * t) - (44 / 5) * np.exp(-2 * t) + (165 / 13) * np.exp(-3 * t)
+    #analitica = (-253 / 65) * np.cos(11 * t) + (121 / 65) * np.sin(11 * t) - (44 / 5) * np.exp(-2 * t) + (165 / 13) * np.exp(-3 * t)
     
     # Error de Euler y RK5 con respecto a la solución analítica
     euler_error[j] = abs(euler[j] - analitica)
-    rk5_error[j] = abs(rk5[j] - analitica)
-    v_real[j] = analitica
+    rk5_error[j]   = abs(rk5[j] - analitica)
+    v_real[j]      = analitica
     
     # Actualizamos Q para la siguiente iteración
     Q = Q_RK5_nueva

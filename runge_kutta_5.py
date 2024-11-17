@@ -9,6 +9,7 @@ t = 0
 Q = np.array([0, 0])  # Condiciones iniciales
 N = 21  # Número de iteraciones
 
+# 
 # Inicializar arrays para almacenar resultados
 v_real = np.zeros(N)
 euler = np.zeros(N)

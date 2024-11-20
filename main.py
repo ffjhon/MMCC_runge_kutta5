@@ -1,10 +1,17 @@
 from machine import Pin, SPI
-import time, os
+import time
 from ili9341 import Display, color565
 from xglcd_font import XglcdFont
 
-# Verificar los archivos disponibles
-print(os.listdir())
+def mostrar_logo():   
+    spi = SPI(1, baudrate=40000000, sck=Pin(14), mosi=Pin(15))
+    display = Display(spi, dc=Pin(6), cs=Pin(17), rst=Pin(7), rotation=180)
+
+    display.draw_image('images/logo-mmcc.raw', 0, 0, 240, 320)
+    time.sleep(5)
+    display.cleanup()
+
+mostrar_logo()
 
 # Función para limpiar la pantalla
 def limpiar_pantalla():
@@ -22,20 +29,15 @@ spi = SPI(1, baudrate=10000000, sck=Pin(14), mosi=Pin(15))
 display = Display(spi, dc=Pin(6), cs=Pin(17), rst=Pin(7), rotation=180)  # Ejemplo de configuración
 
 # Limpiar la pantalla al inicio
-limpiar_pantalla()
-
-# Cargar la fuente 'Broadway17x15' (asegurarse de que esté en el directorio correcto)
-fuente = XglcdFont('fonts/Broadway17x15.c', 17, 15)  # Usar la fuente que especificaste
+#limpiar_pantalla()
 
 # Mostrar el mensaje 'Semillero MMCC' con la fuente 'Broadway17x15'
-display.draw_text(50, 150, "Semillero MMCC", fuente, color565(255, 255, 255), color565(0, 0, 0))
+#fuente = XglcdFont('fonts/Broadway17x15.c', 17, 15)  # Usar la fuente que especificaste
+#display.draw_text(50, 150, "Semillero MMCC", fuente, color565(255, 255, 255), color565(0, 0, 0))
+#time.sleep(3)
 #display.show()  # Actualiza la pantalla para mostrar el texto
-
-# Esperar 2 segundos antes de continuar
-time.sleep(3)
-
 # Limpiar la pantalla para preparar la ejecución del primer script
-limpiar_pantalla()
+#limpiar_pantalla()
 
 # Ejecutar el primer script al iniciar
 try:

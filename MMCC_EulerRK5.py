@@ -101,7 +101,7 @@ for i in range(1, N):
     y1_rk5 = int(240 - (rk5[i - 1] - min_rk5) * scale_rk5)
     x2_rk5 = i * 15
     y2_rk5 = int(240 - (rk5[i] - min_rk5) * scale_rk5)
-    display.draw_line(x1_rk5, y1_rk5, x2_rk5, y2_rk5, color565(255, 0, 0))  # Línea roja
+    display.draw_line(x1_rk5, y1_rk5, x2_rk5, y2_rk5, color565(255, 99, 71))  # Línea Color 'Tomato'
 
 # Mantener la visualización por un tiempo
 time.sleep(10)

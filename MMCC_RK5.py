@@ -66,7 +66,7 @@ for i in range(1, N):
     y1 = int(240 - (rk5[i - 1] - min_rk5) * scale)
     x2 = i * 15
     y2 = int(240 - (rk5[i] - min_rk5) * scale)
-    display.draw_line(x1, y1, x2, y2, color565(255, 0, 0))  # Dibujar la línea en color rojo
+    display.draw_line(x1, y1, x2, y2, color565(255, 99, 71))  # Dibujar la línea en color rojo
 
 # Mantener la visualización por un tiempo
 time.sleep(10)
